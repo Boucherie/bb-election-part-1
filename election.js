@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Imagination!
   var callPoll = document.querySelector('#call-poll');
 
+
   callPoll.addEventListener('click', function(){
     $.ajax({
       url: 'https://bb-election-api.herokuapp.com/',
@@ -20,17 +21,35 @@ document.addEventListener("DOMContentLoaded", function() {
         var formTag = document.createElement('form');
         listTag.append(electionString);
         listTag.append(formTag);
-
         electionPolls.append(listTag);
+
         formTag.setAttribute('method', 'POST');
         formTag.setAttribute('action', 'https://bb-election-api.herokuapp.com/vote');
+
         var voteButton = document.createElement('button');
-        voteButton.innerHTML = 'Vote!';
+        voteButton.innerHTML = 'Submit Vote!';
+        voteButton.addClass = 'vote-button';
         formTag.append(voteButton);
+
+
+        var voteCast = document.createElement('input');
+        voteCast.setAttribute('type', 'hidden');
+        voteCast.setAttribute('name', 'name');
+        voteCast.setAttribute('value', responseData.candidates[i].name);
+        formTag.append(voteCast);
+        //
+
+        // voteButton.addEventListener('click', function(){
+        //   console.log('Vote button clicked');
+        //
+        // })
+
 
       }
     });
   });
+
+
 });
 
 
