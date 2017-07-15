@@ -28,29 +28,43 @@ document.addEventListener("DOMContentLoaded", function() {
 
         var voteButton = document.createElement('button');
         voteButton.innerHTML = 'Submit Vote!';
-        voteButton.addClass = 'vote-button';
+        voteButton.class = 'vote-button';
         formTag.append(voteButton);
-
 
         var voteCast = document.createElement('input');
         voteCast.setAttribute('type', 'hidden');
         voteCast.setAttribute('name', 'name');
         voteCast.setAttribute('value', responseData.candidates[i].name);
         formTag.append(voteCast);
-        //
 
-        // voteButton.addEventListener('click', function(){
-        //   console.log('Vote button clicked');
-        //
-        // })
+          voteButton.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var votedCandidate = $(this).children('input[type=hidden]').val();
+            console.log(votedCandidate);
+
+            $.ajax({
+              url: 'https://bb-election-api.herokuapp.com/vote?name=' + votedCandidate,
+              method: "POST",
+              dataType: "json",
+            }).done(function(responseData){
+              console.log('you voted!')
+              // voteButton.setAttribute('type', 'submit')
+            }).fail(function(){
+              console.log('Vote did not go through.');
+            });
+          });
+
+          voteButton.setAttribute('type', 'submit')
+
+      };
+      });
 
 
-      }
-    });
   });
-
-
 });
+
+
+
 
 
 // In the .done(function(responseData){}) callback function for the AJAX request loop over the candidates in responseData, and append a <li> element for each candidate into the DOM at our <ul> from the last step. You'll want to show the name and votes count of each candidate.
