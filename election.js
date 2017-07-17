@@ -59,7 +59,9 @@ document.addEventListener("DOMContentLoaded", function() {
       };
       });
 
-
+      $("#refreshButton").click(function() {
+      setTimeout(location.reload(true), t);
+      });
   });
 });
 
