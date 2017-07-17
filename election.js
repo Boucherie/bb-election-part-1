@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
         voteCast.setAttribute('value', responseData.candidates[i].name);
         formTag.append(voteCast);
 
-          voteButton.addEventListener('submit', function(e) {
+          formTag.addEventListener('submit', function(e) {
             e.preventDefault();
             var votedCandidate = $(this).children('input[type=hidden]').val();
             console.log(votedCandidate);
